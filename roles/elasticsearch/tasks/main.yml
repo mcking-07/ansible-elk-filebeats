@@ -1,0 +1,35 @@
+---
+- name: import elasticsearch apt-key
+  apt_key:
+    url: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+    state: present
+
+- name: add elasticsearch apt-repo
+  apt_repository:
+    repo: deb https://artifacts.elastic.co/packages/7.x/apt stable main
+    state: present
+    filename: elastic-7.x.list
+    update_cache: yes
+
+- name: install elasticsearch
+  apt:
+    name: elasticsearch
+    state: present
+    update_cache: yes
+
+- name: update elasticsearch config
+  template:
+    dest: /etc/elasticsearch/elasticsearch.yml
+    src: elasticsearch.yml
+
+- name: enable service elasticsearch
+  systemd:
+    name: elasticsearch
+    enabled: yes
+    daemon_reload: yes
+
+- name: start and ensure elasticsearch is running
+  systemd:
+    name: elasticsearch
+    state: started
+    

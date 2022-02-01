@@ -1,0 +1,6 @@
+elastic.path.data:  
+
+elastic.path.logs: 
+
+filebeat.log.path: 
+

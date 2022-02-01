@@ -1,0 +1,33 @@
+---
+- name: install logstash
+  apt:
+    name: logstash
+    state: present
+    update_cache: yes
+
+- name: update logstash config file
+  template:
+    src: logstash.conf
+    dest: /etc/logstash/conf.d/logstash.conf
+
+- name: configure ssh key
+  template:
+    src: elk.pkcs8.key
+    dest: /etc/logstash/elk.pkcs8.key
+
+- name: configure ssh certificate
+  template:
+    src: elk.crt
+    dest: /etc/logstash/elk.crt
+
+- name: enable service logstash
+  systemd:
+    name: logstash
+    enabled: yes
+    daemon_reload: yes
+
+- name: start and ensure logstash is running
+  systemd:
+    name: logstash
+    state: started
+    

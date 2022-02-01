@@ -1,0 +1,36 @@
+---
+- name: import elasticsearch apt-key
+  apt_key:
+    url: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+    state: present
+
+- name: add elasticsearch apt-repo
+  apt_repository:
+    repo: deb https://artifacts.elastic.co/packages/7.x/apt stable main
+    state: present
+    filename: elastic-7.x.list
+    update_cache: yes
+
+- name: install apt-transport-https
+  apt:
+    name: apt-transport-https
+    state: present
+    update_cache: yes
+
+- name: install openssl
+  apt:
+    name: openssl
+    state: present
+    update_cache: yes
+
+- name: install default-jre
+  apt:
+    name: default-jre
+    state: present
+    update_cache: yes
+
+- name: install default-jdk
+  apt:
+    name: default-jdk
+    state: present
+    update_cache: yes

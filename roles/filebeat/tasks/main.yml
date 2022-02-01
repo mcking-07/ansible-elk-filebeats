@@ -1,0 +1,31 @@
+---
+- name: install filebeat
+  apt:
+   name: filebeat
+   update_cache: yes
+
+- name: update filebeat config
+  template:
+    dest: /etc/filebeat/filebeat.yml
+    src: filebeat.yml
+
+- name: disable syslog 
+  template:
+    dest: /etc/filebeat/modules.d/system.yml
+    src: system.yml
+
+- name: configure ssh certificate
+  template:
+    src: ca.crt
+    dest: /etc/filebeat/ca.crt
+
+- name: enable service filebeat
+  systemd:
+    name: filebeat
+    enabled: yes
+    daemon_reload: yes
+
+- name: start and ensure filebeat is running
+  service:
+   name: filebeat
+   state: started
