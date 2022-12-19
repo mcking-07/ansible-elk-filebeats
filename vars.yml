@@ -1,6 +1,5 @@
-elastic.path.data:  
+elastic.path.data: /var/lib/elasticsearch
 
-elastic.path.logs: 
+elastic.path.logs: /var/log/elasticsearch
 
-filebeat.log.path: 
-
+filebeat.log.path: /var/log/nginx/*.log

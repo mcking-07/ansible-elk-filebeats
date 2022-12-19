@@ -30,4 +30,3 @@
   systemd:
     name: logstash
     state: started
-    
